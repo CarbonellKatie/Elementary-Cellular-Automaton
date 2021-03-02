@@ -2,14 +2,12 @@
 public class Rule {
 private int ruleNum;			//ruleNum to be static???
 
-	public Rule(int ruleNum){
-	if(ruleNum < 0) {
-		this.ruleNum = 0;
-	}
-	else if(ruleNum > 255) {
+public Rule(int ruleNum) {
+	if (ruleNum < 0) {
+		this.ruleNum = 0;				//formatting
+	} else if (ruleNum > 255) {
 		this.ruleNum = 255;
-	}
-	else {
+	} else {
 		this.ruleNum = ruleNum;
 	}
 }
@@ -28,6 +26,7 @@ private int ruleNum;			//ruleNum to be static???
 			rightNeighborState = gen.getState(0);
 		}
 		else { rightNeighborState = gen.getState(idx + 1); }
+		
 		if(idx == 0) {
 			leftNeighborState = gen.getState(gen.size() - 1);
 		}
@@ -39,53 +38,58 @@ private int ruleNum;			//ruleNum to be static???
 		return neighborhoodArray;
 	}
 	
+	
 	public boolean evolve(boolean[] neighborhood) {	//input: neighborhood array  given {true, false, false}
-		String binaryNeighborhood = neighborhoodToBinary(neighborhood);	// 010	- 2 in binary
-		System.out.println(binaryNeighborhood);
-		String bitstring = Integer.toBinaryString(ruleNum);
-		bitstring = String.format("%8s", bitstring);	//00010110
-		bitstring = bitstring.replaceAll(" ", "0");
-		System.out.println(bitstring);
+		String binaryNeighborhood = neighborhoodToBinary(neighborhood);	
+		String bitstring = intToBinary(ruleNum);
+		
 		for(int j = 7; j >= 0; j--) {
-			
-			String binaryJ = Integer.toBinaryString(j);		//condense into method formatBinary
-			binaryJ = String.format("%3s", binaryJ);
-			binaryJ = binaryJ.replaceAll(" ", "0");
-			System.out.println(binaryJ);
-			
+			String binaryJ = intToBinary(j);
 			if(binaryJ.equals(binaryNeighborhood)) {	//found at binary 2
-				System.out.println(7-j);
 				return (charToBoolean(bitstring.charAt(7-j)));	//7-2 = 5	//returns the boolean value associated with the next step of that neighborhood
 			}
 		}
-		System.out.println("something wrong");
 		return false;
 	}
-	public String arrayToString(int[] array) {	//returns "011"
 	
+	
+	public Generation evolve(Generation gen) {
+		
+	}
+	
+	
+	//HELPER METHODS:
+	
+	public String arrayToString(int[] array) {	//helper method
 		String arrayString = "";
-		for(int x: array) {
-			arrayString += x;
-		}
+		for(int x: array) {arrayString += x;}				//?? for loops same format as else statements?
 		return arrayString;
 	}
 	
-	public boolean charToBoolean(char character) {
+	
+	public String intToBinary(int value) {		//helper method, changes given int value into a binary string of length 3 (intended to be used on number 0-7 only
+		String binaryString = Integer.toBinaryString(value);		
+		binaryString = String.format("%3s", binaryString);
+		binaryString = binaryString.replaceAll(" ", "0");
+		return binaryString;
+	}
+	
+	
+	public boolean charToBoolean(char character) {		//helper method
 			if(character == '0') {System.out.println("false");return false;}
 			System.out.println("true");
 			return true;
-			
 		}
 	
 	
 	public String neighborhoodToBinary(boolean[] neighborhood) {	//helper method to change boolean neighborhood array into 1s and 0s
 		String binaryNeighborhood = "";
-		
 		for(int i = 0; i < neighborhood.length; i++) {			//changing neighborhood array into binary form 0 = false; 1 = true {0, 1, 1}
 			if(neighborhood[i] == true) {binaryNeighborhood += "1";}		//???? If statements acceptable in this form?
-			else if(neighborhood[i] == false) {binaryNeighborhood += "0";}
+			else {binaryNeighborhood += "0";}
 		}
 		return binaryNeighborhood;
 	}
+	
 
 }

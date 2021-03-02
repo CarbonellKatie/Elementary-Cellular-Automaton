@@ -1,19 +1,19 @@
 
 public class Rule {
-private int ruleNum;			//ruleNum to be static???
+private static int ruleNum;			//ruleNum to be static???
 
-public Rule(int ruleNum) {
-	if (ruleNum < 0) {
-		this.ruleNum = 0;				//formatting
-	} else if (ruleNum > 255) {
-		this.ruleNum = 255;
+public Rule(int ruleNumP) {
+	if (ruleNumP < 0) {
+		ruleNum = 0;				//formatting
+	} else if (ruleNumP > 255) {
+		ruleNum = 255;
 	} else {
-		this.ruleNum = ruleNum;
+		ruleNum = ruleNumP;
 	}
 }
 	
 	public int getRuleNum() {
-		return this.ruleNum;
+		return ruleNum;
 	}
 	
 	public static boolean[] getNeighborhood(int idx, Generation gen) {
@@ -40,11 +40,11 @@ public Rule(int ruleNum) {
 	
 	
 	public boolean evolve(boolean[] neighborhood) {	//input: neighborhood array  given {true, false, false}
-		String binaryNeighborhood = neighborhoodToBinary(neighborhood);	
-		String bitstring = intToBinary(ruleNum);
-		
+		String binaryNeighborhood = neighborhoodToBinary(neighborhood);	//changes neighborhood to a string of 1s and 0s 
+		String bitstring = intToBinary2(ruleNum);	//changes rule number to binary string correctly formatted
+		System.out.println(bitstring);
 		for(int j = 7; j >= 0; j--) {
-			String binaryJ = intToBinary(j);
+			String binaryJ = intToBinary1(j);
 			if(binaryJ.equals(binaryNeighborhood)) {	//found at binary 2
 				return (charToBoolean(bitstring.charAt(7-j)));	//7-2 = 5	//returns the boolean value associated with the next step of that neighborhood
 			}
@@ -53,10 +53,18 @@ public Rule(int ruleNum) {
 	}
 	
 	
-	public Generation evolve(Generation gen) {
+	/*public Generation evolve(Generation gen) {
+		String str = "";
+		for(int i = 0; i < gen.size(); i++) {
+		boolean nextState = evolve(getNeighborhood(i, gen));
+		str += booleanToChar(nextState);
 		
+		
+		}
+		Generation nextGen = new Generation(str, '1');
+		return nextGen;
 	}
-	
+	*/
 	
 	//HELPER METHODS:
 	
@@ -67,9 +75,16 @@ public Rule(int ruleNum) {
 	}
 	
 	
-	public String intToBinary(int value) {		//helper method, changes given int value into a binary string of length 3 (intended to be used on number 0-7 only
+	public String intToBinary1(int value) {		//helper method, changes given int value into a binary string of length 3 (intended to be used on number 0-7 only
 		String binaryString = Integer.toBinaryString(value);		
 		binaryString = String.format("%3s", binaryString);
+		binaryString = binaryString.replaceAll(" ", "0");
+		return binaryString;
+	}
+	
+	public String intToBinary2(int value) {
+		String binaryString = Integer.toBinaryString(value);		
+		binaryString = String.format("%8s", binaryString);
 		binaryString = binaryString.replaceAll(" ", "0");
 		return binaryString;
 	}
@@ -80,6 +95,14 @@ public Rule(int ruleNum) {
 			System.out.println("true");
 			return true;
 		}
+	
+	public char booleanToChar(boolean bool) {
+		if(bool == true) {
+			return 1;
+		}
+		else {return 0;}
+	}
+	
 	
 	
 	public String neighborhoodToBinary(boolean[] neighborhood) {	//helper method to change boolean neighborhood array into 1s and 0s

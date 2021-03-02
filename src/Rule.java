@@ -42,7 +42,6 @@ public Rule(int ruleNumP) {
 	public boolean evolve(boolean[] neighborhood) {	//input: neighborhood array  given {true, false, false}
 		String binaryNeighborhood = neighborhoodToBinary(neighborhood);	//changes neighborhood to a string of 1s and 0s 
 		String bitstring = intToBinary2(ruleNum);	//changes rule number to binary string correctly formatted
-		System.out.println(bitstring);
 		for(int j = 7; j >= 0; j--) {
 			String binaryJ = intToBinary1(j);
 			if(binaryJ.equals(binaryNeighborhood)) {	//found at binary 2
@@ -53,18 +52,20 @@ public Rule(int ruleNumP) {
 	}
 	
 	
-	/*public Generation evolve(Generation gen) {
+	public Generation evolve(Generation gen) {
 		String str = "";
 		for(int i = 0; i < gen.size(); i++) {
 		boolean nextState = evolve(getNeighborhood(i, gen));
-		str += booleanToChar(nextState);
+		System.out.println(nextState);
+		 str += booleanToString(nextState);
+		
 		
 		
 		}
 		Generation nextGen = new Generation(str, '1');
 		return nextGen;
 	}
-	*/
+	
 	
 	//HELPER METHODS:
 	
@@ -91,16 +92,15 @@ public Rule(int ruleNumP) {
 	
 	
 	public boolean charToBoolean(char character) {		//helper method
-			if(character == '0') {System.out.println("false");return false;}
-			System.out.println("true");
+			if(character == '0') {return false;}
 			return true;
 		}
 	
-	public char booleanToChar(boolean bool) {
+	public String booleanToString(boolean bool) {
 		if(bool == true) {
-			return 1;
+			return "1";
 		}
-		else {return 0;}
+		else {return "0";}
 	}
 	
 	

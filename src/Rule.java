@@ -41,15 +41,24 @@ private int ruleNum;			//ruleNum to be static???
 	
 	public boolean evolve(boolean[] neighborhood) {	//input: neighborhood array  given {true, false, false}
 		String binaryNeighborhood = neighborhoodToBinary(neighborhood);	// 010	- 2 in binary
+		System.out.println(binaryNeighborhood);
 		String bitstring = Integer.toBinaryString(ruleNum);
 		bitstring = String.format("%8s", bitstring);	//00010110
 		bitstring = bitstring.replaceAll(" ", "0");
+		System.out.println(bitstring);
 		for(int j = 7; j >= 0; j--) {
-			if((Integer.toBinaryString(j)).equals(binaryNeighborhood)) {	//found at binary 2
-				return (charToBoolean(bitstring.charAt(7-j)));	//7-2 = 5	//returns the boolean value associated with the next step of that neighborhood
 			
+			String binaryJ = Integer.toBinaryString(j);		//condense into method formatBinary
+			binaryJ = String.format("%3s", binaryJ);
+			binaryJ = binaryJ.replaceAll(" ", "0");
+			System.out.println(binaryJ);
+			
+			if(binaryJ.equals(binaryNeighborhood)) {	//found at binary 2
+				System.out.println(7-j);
+				return (charToBoolean(bitstring.charAt(7-j)));	//7-2 = 5	//returns the boolean value associated with the next step of that neighborhood
 			}
 		}
+		System.out.println("something wrong");
 		return false;
 	}
 	public String arrayToString(int[] array) {	//returns "011"
@@ -62,8 +71,10 @@ private int ruleNum;			//ruleNum to be static???
 	}
 	
 	public boolean charToBoolean(char character) {
-			if(character == '0') {return false;}
-			else {return true;}
+			if(character == '0') {System.out.println("false");return false;}
+			System.out.println("true");
+			return true;
+			
 		}
 	
 	

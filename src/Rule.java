@@ -39,20 +39,18 @@ private int ruleNum;			//ruleNum to be static???
 		return neighborhoodArray;
 	}
 	
-	public boolean evolve(boolean[] neighborhood) {	//input: neighborhood array  given {true, false, true}
-		String binaryNeighborhood = neighborhoodToBinary(neighborhood);	// 011
-		String ruleNumBinary = Integer.toBinaryString(ruleNum);
-		ruleNumBinary = String.format("%8s", ruleNumBinary);
-		int foundAt = -1;
-		for(int i = 0; i < neighborhood.length; i++) {
+	public boolean evolve(boolean[] neighborhood) {	//input: neighborhood array  given {true, false, false}
+		String binaryNeighborhood = neighborhoodToBinary(neighborhood);	// 010	- 2 in binary
+		String bitstring = Integer.toBinaryString(ruleNum);
+		bitstring = String.format("%8s", bitstring);	//00010110
+		bitstring = bitstring.replaceAll(" ", "0");
 		for(int j = 7; j >= 0; j--) {
-			if(Integer.toBinaryString(j) == binaryNeighborhood) {
-				foundAt = j;
-				neighborhood[i] = ruleNumBinary.charAt(7-j);		//gives back 0
-				break;
+			if((Integer.toBinaryString(j)).equals(binaryNeighborhood)) {	//found at binary 2
+				return (charToBoolean(bitstring.charAt(7-j)));	//7-2 = 5	//returns the boolean value associated with the next step of that neighborhood
+			
 			}
 		}
-		
+		return false;
 	}
 	public String arrayToString(int[] array) {	//returns "011"
 	
@@ -63,13 +61,18 @@ private int ruleNum;			//ruleNum to be static???
 		return arrayString;
 	}
 	
+	public boolean charToBoolean(char character) {
+			if(character == '0') {return false;}
+			else {return true;}
+		}
+	
 	
 	public String neighborhoodToBinary(boolean[] neighborhood) {	//helper method to change boolean neighborhood array into 1s and 0s
 		String binaryNeighborhood = "";
 		
 		for(int i = 0; i < neighborhood.length; i++) {			//changing neighborhood array into binary form 0 = false; 1 = true {0, 1, 1}
-			if(neighborhood[i] == true) {binaryNeighborhood += 1;}		//???? If statements acceptable in this form?
-			else if(neighborhood[i] == false) {binaryNeighborhood += 0;}
+			if(neighborhood[i] == true) {binaryNeighborhood += "1";}		//???? If statements acceptable in this form?
+			else if(neighborhood[i] == false) {binaryNeighborhood += "0";}
 		}
 		return binaryNeighborhood;
 	}

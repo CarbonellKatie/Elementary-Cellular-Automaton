@@ -57,10 +57,7 @@ public Rule(int ruleNumP) {
 		for(int i = 0; i < gen.size(); i++) {
 		boolean nextState = evolve(getNeighborhood(i, gen));
 		System.out.println(nextState);
-		 str += booleanToString(nextState);
-		
-		
-		
+		 str += booleanToString(nextState);	
 		}
 		Generation nextGen = new Generation(str, '1');
 		return nextGen;
@@ -102,8 +99,6 @@ public Rule(int ruleNumP) {
 		}
 		else {return "0";}
 	}
-	
-	
 	
 	public String neighborhoodToBinary(boolean[] neighborhood) {	//helper method to change boolean neighborhood array into 1s and 0s
 		String binaryNeighborhood = "";

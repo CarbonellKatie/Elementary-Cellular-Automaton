@@ -33,6 +33,7 @@ private ArrayList<Generation> generations = new ArrayList<Generation>();
 		generations.add(gen);
 		currInfoString = br.readLine();
 	}
+		br.close();
 	}
 
 public int getRuleNum() {

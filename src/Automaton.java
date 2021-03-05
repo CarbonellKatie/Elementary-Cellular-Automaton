@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -76,6 +78,11 @@ public String toString() {
 		strJ.add(str);
 	}
 	return strJ.toString();
-	
+}
+
+public void saveEvolution(String filename) throws IOException {
+	BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+	bw.write(this.toString());
+	bw.close();
 }
 }

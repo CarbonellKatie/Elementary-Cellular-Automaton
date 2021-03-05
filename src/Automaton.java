@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.util.StringJoiner;
 public class Automaton {
-private char trueSymbol;
-private char falseSymbol;
+public char trueSymbol;
+public char falseSymbol;
 private Rule rule;
 private int steps = 0;
 
@@ -9,12 +10,12 @@ private ArrayList<Generation> generations = new ArrayList<Generation>();
 	public Automaton(int ruleNum, Generation initial) {
 		trueSymbol = '0';
 		falseSymbol = '1';
-		Rule rule = new Rule(ruleNum);
+		rule = new Rule(ruleNum);
 		generations.add(initial);
 	}
 
 	public Automaton(String filename){
-		
+		rule = new Rule(6);
 	}
 
 public int getRuleNum() {
@@ -22,8 +23,11 @@ public int getRuleNum() {
 }
 
 public void evolve(int numSteps) {
-	Generation gen = generations.get(0);
-	if(steps <= 0) {
+	if(generations.size() == 0) {
+		return;
+	}
+	Generation gen = generations.get(generations.size() - 1);
+	if(gen == null || numSteps <= 0) {
 		return;
 	}
 	steps += numSteps;
@@ -43,6 +47,18 @@ public Generation getGeneration(int stepNum) {
 }
 
 public int getTotalSteps() {
-	return generations.size() - 1;
+	return generations.size();
+}
+
+public String toString() {
+	String str = "";
+	StringJoiner strJ = new StringJoiner("");
+	for(int i = 0; i < generations.size(); i++) {
+		str = (generations.get(i)).getStates(trueSymbol, falseSymbol);
+		strJ.add(str);
+		strJ.add(System.lineSeparator());
+	}
+	return strJ.toString();
+	
 }
 }

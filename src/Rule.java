@@ -110,7 +110,8 @@ public class Rule {
 	}
 
 	/**
-	 * helper method, changes given int value into a binary string of length 3 (padded on left side with 0s if length < 3,
+	 * helper method, changes given int value into a binary string of length 3 (padded on left side with 0s if length is
+	 * less than 3,
 	 *  (intended to be used on number 0-7 only)
 	 * @param value		value you want converted to binary
 	 * @return			returns the number as a binary string 3 characters long		
@@ -123,10 +124,11 @@ public class Rule {
 	}
 
 	/**
-	 * helper method, changes given int value into a binary string of length 8 (padded on left side with 0s if length < 8,
+	 * helper method, changes given int value into a binary string of length 8 (padded on left side with 0s if length is
+	 * less than 8,
 	 *  (intended to be used on number greater than 7)
-	 * @param value
-	 * @return
+	 * @param value		int value you want converted to binary
+	 * @return			returns String representation of value in binary
 	 */
 	public String intToBinary2(int value) {
 		String binaryString = Integer.toBinaryString(value);
@@ -172,7 +174,7 @@ public class Rule {
 														// true {0, 1, 1}
 			if (neighborhood[i] == true) {
 				binaryNeighborhood += "1";
-			} // ???? If statements acceptable in this form?
+			} 
 			else {
 				binaryNeighborhood += "0";
 			}

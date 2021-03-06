@@ -1,8 +1,8 @@
 import java.util.Arrays;
 
-/** representation of a Generation object composed of a boolean array of cell states
+/** representation of a Generation object that contains a boolean array of cell states
  * @author Katherine Carbonell
- * @verion 0.1
+ * @version 0.1
  */
 public class Generation {
 	private boolean[] cellStates;
